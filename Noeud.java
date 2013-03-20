@@ -16,6 +16,28 @@ public class Noeud {
     private ArrayList<Lien> lienSortant;
     private ArrayList<Lien> lienEntrant;
     private Boolean visite;
+
+    Noeud(String nom) {
+        this.nom = nom;
+    }
     
+    
+    
+    
+    public String getNom(){
+        return this.nom;
+    }
+
+    public void setLienSortant(ArrayList<Lien> lienSortant) {
+        this.lienSortant = lienSortant;
+    }
+
+    public void setLienEntrant(ArrayList<Lien> lienEntrant) {
+        this.lienEntrant = lienEntrant;
+    }
+    
+    
+    
+
     
 }

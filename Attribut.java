@@ -13,6 +13,19 @@ import java.util.ArrayList;
 public class Attribut {
     
     private String nom;
-    private ArrayList<String> valeur;
+    private String valeur;
+
+    public String getNom() {
+        return nom;
+    }
+
+    public String getValeur() {
+        return valeur;
+    }
+
+    public Attribut(String nom, String valeur) {
+        this.nom = nom;
+        this.valeur = valeur;
+    }
     
 }
