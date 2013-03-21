@@ -21,6 +21,7 @@
 (Anna --like[]--> Martin),
 (Jean-Pierre <--friend[since=2008]-- Marie-Claire),
 (Jean-Pierre --friend[since=2007]--> Marie-Claire),
+(Jean-Pierre --friend[share=[book]]-- Marie-Claire),
 (Jean-Pierre <--friend[since=2010]--> Pierre Jean),
 (Pierre Jean --friend[since=2011]-- Jill),
 (Dawn --friend[since=2001][share=[tweets]]-- Jill),
