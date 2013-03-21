@@ -57,12 +57,10 @@ public class Projet_GL {
         //lire nom 1
         chaine = tab.get(0).toString();
         pos = chaine.indexOf("<--") < 0 ? chaine.indexOf("--") : chaine.indexOf("<--");
-        //System.out.print(chaine.substring(0, pos).trim());
         pers = addNoeud(pers, chaine.substring(0, pos).trim());
                
         // lire nom 2
         pos = chaine.indexOf("-->") < 0 ? chaine.indexOf("--", chaine.indexOf("--")+2)+2 : chaine.indexOf("-->")+3;
-        //System.out.print(" " + chaine.substring(pos).trim());
         pers = addNoeud(pers, chaine.substring(pos).trim());
         
         //lire lien        
