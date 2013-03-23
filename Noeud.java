@@ -53,16 +53,6 @@ public class Noeud {
         return lienEntrant;
     }
     
-    
 
-    public void setLienSortant(ArrayList<Lien> lienSortant) {
-        this.lienSortant = lienSortant;
-    }
-
-    public void setLienEntrant(ArrayList<Lien> lienEntrant) {
-        this.lienEntrant = lienEntrant;
-    }
-
-    
     
 }
