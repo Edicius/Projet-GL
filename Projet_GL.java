@@ -38,12 +38,8 @@ public class Projet_GL {
 
         analyse(donnees, personnes);
         
-        afficherGraphe(personnes);
+        //afficherGraphe(personnes);
         
-//        System.out.println("");
-//        for (int i=0 ; i < personnes.size() ; i++){
-//            System.out.println(personnes.get(i).getNom());
-//        }
     }
     
     public static ArrayList analyse(ArrayList tab, ArrayList pers){
