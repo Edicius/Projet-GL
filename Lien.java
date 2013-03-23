@@ -31,4 +31,15 @@ public class Lien {
     
     
     
+    public static ArrayList buildAtt(String chaine, ArrayList tab){
+
+        if(chaine.indexOf(",") < 0){
+            tab.add(new Attribut(chaine.substring(0, chaine.indexOf("=")).trim(), chaine.substring(chaine.indexOf("=")+1, chaine.indexOf("]")).trim()));
+            return tab;
+        }
+        
+        tab.add(new Attribut(chaine.substring(0, chaine.indexOf("=")).trim(), chaine.substring(chaine.indexOf("=")+1, chaine.indexOf(",")).trim()));
+        return buildAtt(chaine.substring(chaine.indexOf(",")+1), tab);
+    }
+    
 }

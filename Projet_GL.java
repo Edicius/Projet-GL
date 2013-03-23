@@ -28,13 +28,13 @@ public class Projet_GL {
         is = new FileInputStream(fichier);
         
         InputStreamReader isr = new InputStreamReader(is);
-        try (BufferedReader br = new BufferedReader(isr)) {
-            String ligne;
+        BufferedReader br = new BufferedReader(isr);
+        String ligne;
             
-            while ((chaine = br.readLine()) != null){
-                decoupe(chaine, donnees);  
-            }
+        while ((chaine = br.readLine()) != null){
+            decoupe(chaine, donnees);  
         }
+        
 
         analyse(donnees, personnes);
         
@@ -74,7 +74,7 @@ public class Projet_GL {
         
         
         //lire attribut
-        att = buildAtt(chaine.substring(chaine.indexOf("[")+1), att);
+        att = Lien.buildAtt(chaine.substring(chaine.indexOf("[")+1), att);
   
         
         n1 = search(pers, nom1);
@@ -129,16 +129,7 @@ public class Projet_GL {
         
     }
     
-    public static ArrayList buildAtt(String chaine, ArrayList tab){
 
-        if(chaine.indexOf(",") < 0){
-            tab.add(new Attribut(chaine.substring(0, chaine.indexOf("=")).trim(), chaine.substring(chaine.indexOf("=")+1, chaine.indexOf("]")).trim()));
-            return tab;
-        }
-        
-        tab.add(new Attribut(chaine.substring(0, chaine.indexOf("=")).trim(), chaine.substring(chaine.indexOf("=")+1, chaine.indexOf(",")).trim()));
-        return buildAtt(chaine.substring(chaine.indexOf(",")+1), tab);
-    }
     
     public static ArrayList addNoeud(ArrayList tab, String nom){
         
