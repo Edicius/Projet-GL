@@ -28,13 +28,13 @@ public class Projet_GL {
         is = new FileInputStream(fichier);
         
         InputStreamReader isr = new InputStreamReader(is);
-        try (BufferedReader br = new BufferedReader(isr)) {
+        BufferedReader br = new BufferedReader(isr);
             String ligne;
             
             while ((chaine = br.readLine()) != null){
                 decoupe(chaine, donnees);  
             }
-        }
+        
 
         analyse(donnees, personnes);
         
