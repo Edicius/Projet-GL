@@ -17,7 +17,7 @@ public class Lien {
     private Noeud arrivee;
     private ArrayList<Attribut> attribut;
     private Boolean visite;
-
+    
 
 
     
@@ -32,7 +32,11 @@ public class Lien {
     public Boolean getVisite() {
         return visite;
     }
-
+    
+public String getNom() {
+        return nom;
+    }
+        
     public void setVisite(Boolean visite) {
         this.visite = visite;
     }
@@ -44,4 +48,6 @@ public class Lien {
     public Noeud getArrivee() {
         return arrivee;
     }
+}
+
 }
