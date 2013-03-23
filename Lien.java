@@ -24,5 +24,11 @@ public class Lien {
         this.arrivee = arrivee;
         this.attribut = attribut;
     }
+
+    public String getNom() {
+        return nom;
+    }
+    
+    
     
 }

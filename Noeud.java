@@ -19,21 +19,31 @@ public class Noeud {
 
     Noeud(String nom) {
         this.nom = nom;
+        this.lienEntrant = new ArrayList<Lien>();
+        this.lienSortant = new ArrayList<Lien>();
     }
     
     
     
     
     public String getNom(){
-        return this.nom;
+        return this.nom;        
     }
 
-    public void setLienSortant(ArrayList<Lien> lienSortant) {
+    public void setLienSortant(ArrayList<Lien> lienSortant) {        
         this.lienSortant = lienSortant;
     }
 
     public void setLienEntrant(ArrayList<Lien> lienEntrant) {
         this.lienEntrant = lienEntrant;
+    }
+
+    public ArrayList<Lien> getLienSortant() {
+        return lienSortant;
+    }
+
+    public ArrayList<Lien> getLienEntrant() {
+        return lienEntrant;
     }
     
     
