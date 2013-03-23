@@ -21,13 +21,20 @@ public class Noeud {
         this.nom = nom;
         this.lienEntrant = new ArrayList<Lien>();
         this.lienSortant = new ArrayList<Lien>();
+        this.visite = false;
+    }
+
+    public Boolean getVisite() {
+        return visite;
+    }
+
+    public void setVisite(Boolean visite) {
+        this.visite = visite;
     }
     
     
-    
-    
     public String getNom(){
-        return this.nom;        
+        return nom;        
     }
 
     public void setLienSortant(ArrayList<Lien> lienSortant) {        
@@ -47,7 +54,15 @@ public class Noeud {
     }
     
     
-    
 
+    public void setLienSortant(ArrayList<Lien> lienSortant) {
+        this.lienSortant = lienSortant;
+    }
+
+    public void setLienEntrant(ArrayList<Lien> lienEntrant) {
+        this.lienEntrant = lienEntrant;
+    }
+
+    
     
 }
