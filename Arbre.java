@@ -18,6 +18,7 @@ public class Arbre {
     public ArrayList Largeur (Noeud noeud, ArrayList noeudVisite){
         noeudVisite.add(noeud);
         noeud.setVisite(true);
+        parcourLargeur (noeud, noeudVisite);
         return noeudVisite;
     }
     
