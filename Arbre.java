@@ -69,6 +69,21 @@ public class Arbre {
         }
         return noeudVisite;
     }
+    
+    public ArrayList<Noeud> parcourProfondeur (Noeud noeud, ArrayList<Noeud> noeudVisite, int nivParcour){
+      noeud.setVisite(true);
+      noeudVisite.add(noeud);
+      ArrayList<Lien> lienSortant;
+      lienSortant = noeud.getLienSortant();
+      
+      for(int i=0;i<lienSortant.size();i++){
+    	  if(!lienSortant.get(i).getVisite() && nivParcour-1>0){
+    		  noeudVisite = parcourProfondeur((Noeud)lienSortant.get(i).getArrivee(), noeudVisite, nivParcour -1);
+    	  }
+      }
+      return noeudVisite;
+    }
+    
 }
 
 
