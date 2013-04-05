@@ -35,10 +35,10 @@ public class Projet_GL {
             decoupe(chaine, donnees);  
         }
         
-
+        
         analyse(donnees, personnes);
         
-        //afficherGraphe(personnes);
+        afficherGraphe(personnes);
         
     }
     
@@ -48,8 +48,8 @@ public class Projet_GL {
             return pers;
         }
         
-        String chaine, lien, attribut, nom1, nom2;
-        int pos, lienDir, attributVal; //lienDir <-- = -1, -- = 0, --> = 1;
+        String chaine, chaine2, lien, nom1, nom2;
+        int pos; //lienDir <-- = -1, -- = 0, --> = 1;
         ArrayList att = new ArrayList();
         Lien link;
         Noeud n1, n2;
@@ -65,41 +65,53 @@ public class Projet_GL {
         nom2 = chaine.substring(pos).trim();
         pers = addNoeud(pers, nom2);
         
-        //lire lien        
-        lien = chaine.substring(chaine.indexOf("--")+2, chaine.indexOf("[")).trim();
-        
-        
-        //lire attribut
-        att = Lien.buildAtt(chaine.substring(chaine.indexOf("[")+1), att);
-  
-        
+        ArrayList<Lien> tmp;           
         n1 = search(pers, nom1);
         n2 = search(pers, nom2);
+        chaine2 = chaine;
         
-        // check sens 
-        if (!(chaine.indexOf("-->") < 0)){
-            link = new Lien(lien, n1, n2, att);
-            n1.getLienSortant().add(link);
-            n2.getLienEntrant().add(link);
-        }
-        else if(!(chaine.indexOf("<--") < 0)){
-            link = new Lien(lien, n2, n1, att);
-            n2.getLienSortant().add(link);
-            n1.getLienEntrant().add(link);
-        }
-        else{
-            link = new Lien(lien, n1, n2, att);
-            n1.getLienSortant().add(link);
-            n2.getLienEntrant().add(link);
+        while(chaine.indexOf("[") != -1){
+            //lire lien        
+            if (chaine.indexOf("--") != -1 && chaine.indexOf("--") < chaine.indexOf("[")){
+                lien = chaine.substring(chaine.indexOf("--")+2, chaine.indexOf("[")).trim();
+            }
+            else{
+                lien = chaine.substring(0, chaine.indexOf("[")).trim();
+            }
+            //lire attribut
+            att = new ArrayList();
+            att = Lien.buildAtt(chaine.substring(chaine.indexOf("[")+1), att);                        
+            //création lien
+            if (!(chaine.indexOf("-->") < 0)){
+                link = new Lien(lien, n1, n2, att);                
+                n1.getLienSortant().add(link);
+                n2.getLienEntrant().add(link);
+                
+            }
+            else if(!(chaine.indexOf("<--") < 0)){
+                link = new Lien(lien, n2, n1, att);                
+                n2.getLienSortant().add(link);
+                n1.getLienEntrant().add(link);
+            }
+            else{
+                link = new Lien(lien, n1, n2, att);                
+                n1.getLienSortant().add(link);
+                n2.getLienEntrant().add(link);
+                
+                Lien link2 = new Lien(lien, n2, n1, att);                
+                n2.getLienSortant().add(link2);
+                n1.getLienEntrant().add(link2);
+                
+            }
             
-            Lien link2 = new Lien(lien, n2, n1, att);
-            n2.getLienSortant().add(link2);
-            n1.getLienEntrant().add(link2);
+            //MAJ chaine
+            chaine = chaine.substring(chaine.indexOf("]")+1);
+            if (chaine.indexOf(",")==0){
+                chaine = chaine.substring(1);
+            }
         }
+        
 
-        
-        
-        
         tab.remove(0);
         
         return analyse(tab, pers);
@@ -112,14 +124,24 @@ public class Projet_GL {
         
         for (int i = 0 ; i < tab.size() ; i++){
             n = ((Noeud)tab.get(i));
-            System.out.println(n.getNom());
+            System.out.println("\n" + n.getNom());
             System.out.println("\t Liens Entrant");            
             for (int j = 0 ; j < n.getLienEntrant().size() ; j++){
                 System.out.println("\t\t" + n.getLienEntrant().get(j).getNom());
+                for (int k = 0 ; k < n.getLienEntrant().get(j).getAttribut().size() ; k++){
+                    System.out.println(n.getLienEntrant().get(j).getAttribut().get(k).getValeur() == null ? 
+                            "\t\t\t" + n.getLienEntrant().get(j).getAttribut().get(k).getNom() : 
+                            "\t\t\t" + n.getLienEntrant().get(j).getAttribut().get(k).getNom() + " = " + n.getLienEntrant().get(j).getAttribut().get(k).getValeur());
+                }
             }
             System.out.println("\t Liens Sortant");
             for (int j = 0 ; j < n.getLienSortant().size() ; j++){
                 System.out.println("\t\t" + n.getLienSortant().get(j).getNom());
+                for (int k = 0 ; k < n.getLienSortant().get(j).getAttribut().size() ; k++){
+                    System.out.println(n.getLienSortant().get(j).getAttribut().get(k).getValeur() == null ? 
+                            "\t\t\t" + n.getLienSortant().get(j).getAttribut().get(k).getNom() : 
+                            "\t\t\t" + n.getLienSortant().get(j).getAttribut().get(k).getNom() + " = " + n.getLienSortant().get(j).getAttribut().get(k).getValeur());
+                }
             }
         }
         
