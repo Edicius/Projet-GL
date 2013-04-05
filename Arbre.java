@@ -70,13 +70,13 @@ public class Arbre {
         return noeudVisite;
     }
     
-    public ArrayList<Noeud> parcoursProfondeur(ArrayList<Noeud> listeNoeuds,Noeud noeud, ArrayList<Noeud> noeudVisite, int nivParcour ){
+    public static ArrayList<Noeud> parcoursProfondeur(ArrayList<Noeud> listeNoeuds,Noeud noeud, ArrayList<Noeud> noeudVisite, int nivParcour ){
     	resetNoeudVisite(listeNoeuds);
     	noeudVisite = parcoursProfondeurNoeud( noeud, noeudVisite, nivParcour);
     	return noeudVisite;
     }
     
-    public ArrayList<Noeud> parcoursProfondeurNoeud (Noeud noeud, ArrayList<Noeud> noeudVisite, int nivParcour){
+    public static ArrayList<Noeud> parcoursProfondeurNoeud (Noeud noeud, ArrayList<Noeud> noeudVisite, int nivParcour){
       noeud.setVisite(true);
       noeudVisite.add(noeud);
       ArrayList<Lien> lienSortant;
@@ -90,7 +90,7 @@ public class Arbre {
       return noeudVisite;
     }
     
-    public void resetNoeudVisite(ArrayList<Noeud> noeuds){
+    public static void resetNoeudVisite(ArrayList<Noeud> noeuds){
     	for(int i=0;i<noeuds.size();i++){
     		noeuds.get(i).setVisite(false);
     	}

@@ -38,6 +38,15 @@ public class Projet_GL {
         analyse(donnees, personnes);
         
         //afficherGraphe(personnes);
+        
+        ArrayList<Noeud> parcours = new ArrayList<Noeud>();
+        ArrayList<Noeud> parcoursSorti;
+        int niv=4;
+        parcoursSorti = Arbre.parcoursProfondeur(personnes,personnes.get(0), parcours, niv );
+        for(int i=0;i<parcoursSorti.size();i++){
+        	System.out.println(parcoursSorti.get(i).getNom());
+        }
+        
         br.close();
         
     }
