@@ -47,7 +47,7 @@ public class Arbre {
         return noeudVisite;
     }
     
-    public ArrayList parcourLargeurRelation (Noeud noeud, ArrayList noeudVisite, int nivParcour) {
+    public ArrayList parcourLargeurRelation (Noeud noeud, ArrayList noeudVisite, int nivParcour){
         ArrayList<Lien> lien;
         lien = noeud.getLienSortant();
         int noeud_ajoute = 0;
@@ -68,6 +68,75 @@ public class Arbre {
             }
         }
         return noeudVisite;
+    }
+    
+    public ArrayList parcourLiens (Noeud noeud, ArrayList lien, ArrayList direction){
+        ArrayList<Noeud> listeNoeud = new ArrayList();
+        listeNoeud.add(noeud);
+        
+        for (int i=0 ; i<lien.size() ; i++){
+            listeNoeud = parcourLien(listeNoeud, (String)lien.get(i), (String)direction.get(i));
+        }
+        
+        return listeNoeud;
+    }
+            
+    public ArrayList parcourLien (ArrayList listeNoeud, String lien, String direction){
+        ArrayList<Noeud> resultat = new ArrayList();
+        
+        if (direction.equals("<") || direction.equals("-")){
+            resultat.addAll(parcourAscendant(listeNoeud, lien));
+        }
+        
+        if (direction.equals(">") ||  direction.equals("-")){
+            resultat.addAll(parcourDescendant(listeNoeud, lien));
+        }
+        
+        return resultat;
+    }
+            
+    public ArrayList parcourAscendant (ArrayList listeNoeud, String lien){
+        ArrayList<Noeud> resultat = new ArrayList();
+        
+        for (int i =0 ; i<listeNoeud.size() ; i++){
+            resultat.addAll(parcourAscendantNoeud((Noeud)listeNoeud.get(i) ,lien));
+        }
+        
+        return resultat;
+    }
+          
+    public ArrayList parcourAscendantNoeud (Noeud noeud, String lien){
+        ArrayList<Noeud> resultat = new ArrayList();
+        
+        for (int i=0 ; i<noeud.getLienEntrant().size() ; i++){
+            if (noeud.getLienEntrant().get(i).getNom().equals(lien)){
+                resultat.add(noeud.getLienEntrant().get(i).getDepart());
+            }
+        }
+        
+        return resultat;
+    }
+           
+    public ArrayList parcourDescendant (ArrayList listeNoeud, String lien){
+        ArrayList<Noeud> resultat = new ArrayList();
+        
+        for (int i=0 ; i<listeNoeud.size() ; i++){
+            resultat.addAll(parcourDescendantNoeud((Noeud)listeNoeud.get(i), lien));
+        }
+        
+        return resultat;
+    }
+         
+    public ArrayList parcourDescendantNoeud (Noeud noeud, String lien){
+        ArrayList<Noeud> resultat = new ArrayList();
+        
+        for (int i=0 ; i<noeud.getLienSortant().size() ; i++){
+            if (noeud.getLienSortant().get(i).getNom().equals(lien)){
+                resultat.add(noeud.getLienSortant().get(i).getArrivee());
+            }
+        }
+        
+        return resultat;
     }
 }
 
