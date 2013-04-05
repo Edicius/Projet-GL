@@ -15,7 +15,7 @@ public class Arbre {
     ArrayList<Noeud> arbre;
     
     // Méthode du parcour en largeur à appeler
-    public ArrayList Largeur (Noeud noeud, ArrayList noeudVisite, int nivParcour){
+    public ArrayList<Noeud> Largeur (Noeud noeud, ArrayList<Noeud> noeudVisite, int nivParcour){
         noeudVisite.add(noeud);
         noeud.setVisite(true);
         parcourLargeurNoeud (noeud, noeudVisite, nivParcour);
@@ -24,7 +24,7 @@ public class Arbre {
     
     // Parcour en largeur de l'arbre, attention il faut appeler la méthode Largeur, jamais celle-ci directement, 
     // sinon on pourra être amené à visiter deux fois le noeud de départ
-    public ArrayList parcourLargeurNoeud (Noeud noeud, ArrayList noeudVisite, int nivParcour){
+    public ArrayList<Noeud> parcourLargeurNoeud (Noeud noeud, ArrayList<Noeud> noeudVisite, int nivParcour){
         ArrayList<Lien> lien;
         lien = noeud.getLienSortant();
         int noeud_ajoute = 0;
@@ -47,7 +47,7 @@ public class Arbre {
         return noeudVisite;
     }
     
-    public ArrayList parcourLargeurRelation (Noeud noeud, ArrayList noeudVisite, int nivParcour) {
+    public ArrayList<Noeud> parcourLargeurRelation (Noeud noeud, ArrayList<Noeud> noeudVisite, int nivParcour) {
         ArrayList<Lien> lien;
         lien = noeud.getLienSortant();
         int noeud_ajoute = 0;
