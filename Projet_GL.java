@@ -18,7 +18,7 @@ public class Projet_GL {
      */
     public static void main(String[] args) throws FileNotFoundException, IOException {
         
-        ArrayList<Noeud> personnes = new ArrayList(), donnees = new ArrayList();        
+        ArrayList<Noeud> personnes = new ArrayList<Noeud>(), donnees = new ArrayList<Noeud>();        
         
         
         File fichier = new File("Arbre.txt");
@@ -29,7 +29,6 @@ public class Projet_GL {
         
         InputStreamReader isr = new InputStreamReader(is);
         BufferedReader br = new BufferedReader(isr);
-        String ligne;
             
         while ((chaine = br.readLine()) != null){
             decoupe(chaine, donnees);  
@@ -40,8 +39,20 @@ public class Projet_GL {
         
         afficherGraphe(personnes);
         
+        ArrayList<Noeud> parcours = new ArrayList<Noeud>();
+        ArrayList<Noeud> parcoursSorti;
+        int niv=4;
+        parcoursSorti = Arbre.parcoursProfondeur(personnes,personnes.get(0), parcours, niv );
+        for(int i=0;i<parcoursSorti.size();i++){
+        	System.out.println(parcoursSorti.get(i).getNom());
+        }
+        
+        br.close();
+        
     }
     
+    
+    // RM : PRECISER LE TYPE DES ARRAYLISTS
     public static ArrayList analyse(ArrayList tab, ArrayList pers){
         
         if (tab.isEmpty()){

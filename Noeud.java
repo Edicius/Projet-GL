@@ -17,7 +17,7 @@ public class Noeud {
     private ArrayList<Lien> lienEntrant;
     private Boolean visite;
 
-    Noeud(String nom) {
+    public Noeud(String nom) {
         this.nom = nom;
         this.lienEntrant = new ArrayList<Lien>();
         this.lienSortant = new ArrayList<Lien>();

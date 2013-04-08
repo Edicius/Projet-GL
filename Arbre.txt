@@ -25,3 +25,6 @@
 (Jean-Pierre <--friend[since=2010]--> Pierre Jean),
 (Pierre Jean --friend[since=2011]-- Jill),
 (Dawn --friend[since=2001],share[tweets]-- Jill),
+(Jean-Paul -- friend[since=1999, intensite = fort]--> Carol),(Carol -- friend[since=2000]--> Paul),(Paul -- friend[since=1988]--> Bob)
+(Nadine -- friend[since=1968]--> Bob)
+(Nadine <-- friend[since=2002]-- Patrick),(Paul -- friend[since=1988,share=[book,movie]]-- Nadine)
