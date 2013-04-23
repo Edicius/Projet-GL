@@ -6,6 +6,9 @@ package projet_gl;
 
 import java.io.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -16,42 +19,128 @@ public class Projet_GL {
     /**
      * @param args the command line arguments
      */
+    public static Scanner sc = new Scanner(System.in);
+    
     public static void main(String[] args) throws FileNotFoundException, IOException {
         
-        ArrayList<Noeud> personnes = new ArrayList<Noeud>(), donnees = new ArrayList<Noeud>();        
+        File fichier;
+        int choix;
         
-        
-        File fichier = new File("Arbre.txt");
-        InputStream is; 
-        String chaine;
-        
-        is = new FileInputStream(fichier);
-        
-        InputStreamReader isr = new InputStreamReader(is);
-        BufferedReader br = new BufferedReader(isr);
+    
+        while(true){
+            System.out.println("1. Ouvrir un fichier");
+            System.out.println("2. Quitter");
+            System.out.println("");
+            System.out.print("Veuillez choisir une action : ");
+            choix = nextInt(1, 2);
             
-        while ((chaine = br.readLine()) != null){
-            decoupe(chaine, donnees);  
+            switch(choix){
+                case 1:
+                    fichier = ouvertureFichier();
+                    menuTraitement(fichier);
+                    break;
+                    
+                case 2:
+                    System.exit(0);
+            }
+            
         }
+	
+    
+//        ArrayList<Noeud> parcours = new ArrayList<>();
+//        ArrayList<Noeud> parcoursSorti;
+//        int niv=4;
+//        parcoursSorti = Arbre.parcoursProfondeur(personnes,personnes.get(0), parcours, niv );
+//        for(int i=0;i<parcoursSorti.size();i++){
+//        	System.out.println(parcoursSorti.get(i).getNom());
+//        }
         
         
-        analyse(donnees, personnes);
-        
-        afficherGraphe(personnes);
-        
-        ArrayList<Noeud> parcours = new ArrayList<Noeud>();
-        ArrayList<Noeud> parcoursSorti;
-        int niv=4;
-        parcoursSorti = Arbre.parcoursProfondeur(personnes,personnes.get(0), parcours, niv );
-        for(int i=0;i<parcoursSorti.size();i++){
-        	System.out.println(parcoursSorti.get(i).getNom());
-        }
-        
-        br.close();
         
     }
     
+    public static File ouvertureFichier() throws IOException{
+                
+        JFileChooser dialogue = new JFileChooser(new File("."));
+	//PrintWriter sortie;
+	File fichier = null;
+	
+	if (dialogue.showOpenDialog(null)== JFileChooser.APPROVE_OPTION) {
+	    fichier = dialogue.getSelectedFile();
+	    //sortie = new PrintWriter(new FileWriter(fichier.getPath(), true));
+	    //sortie.println(arg[0]);
+	    //sortie.close();
+	}
+        
+        return fichier;
+        
+    }
     
+    public static void menuTraitement(File fichier){
+                
+        int choix;
+        ArrayList<Noeud> personnes = new ArrayList(), donnees = new ArrayList();
+        
+        while(true){
+            System.out.println("1. Afficher graphe (texte)");
+            System.out.println("2. Afficher graphe (GUI)");
+            System.out.println("3. Autre ?");
+            System.out.println("4. Retour");
+            System.out.println("");
+            System.out.print("Veuillez choisir une action à effectuer : ");
+            
+            choix = nextInt(1, 4);
+            
+            switch(choix){
+                case 1:
+                    InputStream is = null; 
+                    String chaine;
+                    
+                    try {
+                        is = new FileInputStream(fichier);
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(Projet_GL.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    InputStreamReader isr = new InputStreamReader(is);
+                    BufferedReader br = new BufferedReader(isr);
+                    
+                    try {
+                        while ((chaine = br.readLine()) != null){
+                            decoupe(chaine, donnees);  
+                        }
+                    } catch (IOException ex) {
+                        Logger.getLogger(Projet_GL.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    
+                    analyse(donnees, personnes);
+
+                    afficherGraphe(personnes);
+                    
+                    System.out.println("ok4");
+                    try {
+                        br.close();
+                    } catch (IOException ex) {
+                        Logger.getLogger(Projet_GL.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break;
+                    
+                case 2:
+                    System.out.println("Pas encore implémentée :/");
+                    break;
+                
+                case 3:
+                    System.out.println("What else ?");
+                    break;
+                    
+                case 4:
+                    return;                    
+                    
+            }
+        }
+        
+    }
     // RM : PRECISER LE TYPE DES ARRAYLISTS
     public static ArrayList analyse(ArrayList tab, ArrayList pers){
         
@@ -59,18 +148,18 @@ public class Projet_GL {
             return pers;
         }
         
-        String chaine, chaine2, lien, nom1, nom2;
+        String chaine, lien, nom1, nom2;
         int pos; //lienDir <-- = -1, -- = 0, --> = 1;
-        ArrayList att = new ArrayList();
+        ArrayList<Attribut> att = new ArrayList<>();
         Lien link;
         Noeud n1, n2;
         
         //lire nom 1
-        chaine = tab.get(0).toString();
-        pos = chaine.indexOf("<--") < 0 ? chaine.indexOf("--") : chaine.indexOf("<--");
+        chaine = tab.get(0).toString();        
+        pos = chaine.indexOf("<--") < 0 ? chaine.indexOf("--") : chaine.indexOf("<--");       
         nom1 = chaine.substring(0, pos).trim();
         pers = addNoeud(pers, nom1);
-               
+
         // lire nom 2
         pos = chaine.indexOf("-->") < 0 ? chaine.indexOf("--", chaine.indexOf("--")+2)+2 : chaine.indexOf("-->")+3;
         nom2 = chaine.substring(pos).trim();
@@ -79,7 +168,7 @@ public class Projet_GL {
         ArrayList<Lien> tmp;           
         n1 = search(pers, nom1);
         n2 = search(pers, nom2);
-        chaine2 = chaine;
+        
         
         while(chaine.indexOf("[") != -1){
             //lire lien        
@@ -193,5 +282,28 @@ public class Projet_GL {
         
     }
             
+    public static int nextInt(int min, int max) {
+        int choix;
+
+        do {
+
+            try {
+                choix = sc.nextInt();
+            } catch (InputMismatchException e) {
+                choix = -1;
+                sc.nextLine();
+            }
+            if (choix < min || choix > max) {
+                choix = -1;
+                System.out.println("Veuillez entrer un nombre entre " + min + " et " + max + ".");
+            }
+
+
+        } while (choix == -1);
+        sc.nextLine();
+        return choix;
+    }
+            
+
             
 }
