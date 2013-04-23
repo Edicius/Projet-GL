@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package projet_gl;
 
 import java.util.ArrayList;
@@ -12,9 +8,22 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ * Fonctions restantes a tester : 
+ * ouvertureFichier
+ * analyse
+ * afficherGraphe
+ * nextInt  
+ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+
+
 /**
- *
- * @author Edicius
+ *	Voici l'ensemble des fonction testees avec l'outil JUnit : 
+ *	- analyse (retourne faux)
+ *	- addNoeud
+ *  - decoupe
+ *  - search
+ *  
  */
 public class Projet_GLTest {
     
@@ -43,11 +52,10 @@ public class Projet_GLTest {
      */
     @Test
     public void testAnalyse() {
-        System.out.println("analyse");
-        ArrayList tab = null;
-        ArrayList pers = null;
-        ArrayList expResult = null;
-        ArrayList result = Projet_GL.analyse(tab, pers);
+        ArrayList<Noeud> tab = null;
+        ArrayList<Noeud> pers = null;
+        ArrayList<Noeud> expResult = null;
+        ArrayList<Noeud> result = Projet_GL.analyse(tab, pers);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -58,10 +66,9 @@ public class Projet_GLTest {
      */
     @Test
     public void testAddNoeud() {
-        //System.out.println("addNoeud");
-        ArrayList tab = new ArrayList();
+        ArrayList<Noeud> tab = new ArrayList<Noeud>();
         String nom = "MonNoeud";
-        ArrayList expResult = new ArrayList();
+        ArrayList<Noeud> expResult = new ArrayList<Noeud>();
         
         expResult.add(new Noeud("MonNoeud"));
         expResult.add(new Noeud("MonNoeud2"));
@@ -71,7 +78,8 @@ public class Projet_GLTest {
         Projet_GL.addNoeud(tab, "MonNoeud2");
         Projet_GL.addNoeud(tab, "MonNoeud3");
         Projet_GL.addNoeud(tab, nom);
-        ArrayList result = tab;
+        ArrayList<Noeud> result = tab;
+        
         int j=0;
         if (result.size() == expResult.size()){
             for (int i = 0 ; i < result.size() ; i++){
@@ -88,14 +96,13 @@ public class Projet_GLTest {
      */
     @Test
     public void testDecoupe() {
-        //System.out.println("decoupe");
         String s = "(blablabla coucou, ok    mh)(bonjour ok salut)   (oui c'est sur!)";
-        ArrayList tableau = new ArrayList();
-        ArrayList expResult = new ArrayList();
+        ArrayList<String> tableau = new ArrayList<String>();
+        ArrayList<String> expResult = new ArrayList<String>();
         expResult.add("blablabla coucou, ok    mh");
         expResult.add("bonjour ok salut");
         expResult.add("oui c'est sur!");
-        ArrayList result = Projet_GL.decoupe(s, tableau);
+        ArrayList<String> result = Projet_GL.decoupe(s, tableau);
         assertEquals(expResult, result);                
     }
 
@@ -105,7 +112,7 @@ public class Projet_GLTest {
     @Test
     public void testSearch() {
         //System.out.println("search");
-        ArrayList<Noeud> tab = new ArrayList();
+        ArrayList<Noeud> tab = new ArrayList<Noeud>();
         String nom = "Bob";
         
         tab.add(new Noeud("Coucou"));

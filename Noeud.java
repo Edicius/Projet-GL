@@ -1,14 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package projet_gl;
 
 import java.util.ArrayList;
 
 /**
- *
- * @author Edicius
+ *Cette graphe noeud represente les elements du reseau social.
+ *Ils sont caracterises par un nom, une liste de lien entrant et sortant, ainsi qu'un booleen indiquant s'il a deja ete visite
+ * 
  */
 public class Noeud {
     

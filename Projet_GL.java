@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package projet_gl;
 
 import java.io.*;
@@ -11,8 +7,8 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 
 /**
- *
- * @author Edicius
+ * Cette methode est la fonction principal du programme et comporte donc le main.
+ * Elle comporte aussi les fonction relative a l'affichage.
  */
 public class Projet_GL {
 
@@ -21,11 +17,9 @@ public class Projet_GL {
      */
     public static Scanner sc = new Scanner(System.in);
     
-    public static void main(String[] args) throws FileNotFoundException, IOException {
-        
+    public static void main(String[] args) throws FileNotFoundException, IOException {        
         File fichier;
         int choix;
-        
     
         while(true){
             System.out.println("1. Ouvrir un fichier");
@@ -45,8 +39,7 @@ public class Projet_GL {
             }
             
         }
-	
-    
+ 
 //        ArrayList<Noeud> parcours = new ArrayList<>();
 //        ArrayList<Noeud> parcoursSorti;
 //        int niv=4;
@@ -54,17 +47,18 @@ public class Projet_GL {
 //        for(int i=0;i<parcoursSorti.size();i++){
 //        	System.out.println(parcoursSorti.get(i).getNom());
 //        }
-        
-        
-        
     }
     
+    /** Méthode ouvertureFichier : 
+     * - 
+     * - 
+     */
     public static File ouvertureFichier() throws IOException{
                 
         JFileChooser dialogue = new JFileChooser(new File("."));
 	//PrintWriter sortie;
 	File fichier = null;
-	
+
 	if (dialogue.showOpenDialog(null)== JFileChooser.APPROVE_OPTION) {
 	    fichier = dialogue.getSelectedFile();
 	    //sortie = new PrintWriter(new FileWriter(fichier.getPath(), true));
@@ -76,10 +70,15 @@ public class Projet_GL {
         
     }
     
+    /** Méthode menuTraitement : 
+     * - Prend en entree un fichier de type File
+     * - 
+     */
     public static void menuTraitement(File fichier){
                 
         int choix;
-        ArrayList<Noeud> personnes = new ArrayList(), donnees = new ArrayList();
+        ArrayList<Noeud> personnes = new ArrayList<Noeud>();
+        ArrayList<Noeud> donnees = new ArrayList<Noeud>();
         
         while(true){
             System.out.println("1. Afficher graphe (texte)");
@@ -141,8 +140,12 @@ public class Projet_GL {
         }
         
     }
-    // RM : PRECISER LE TYPE DES ARRAYLISTS
-    public static ArrayList analyse(ArrayList tab, ArrayList pers){
+    
+    /** Méthode analyse : 
+     * - 
+     * - 
+     */
+    public static ArrayList<Noeud> analyse(ArrayList<Noeud> tab, ArrayList<Noeud> pers){
         
         if (tab.isEmpty()){
             return pers;
@@ -150,7 +153,7 @@ public class Projet_GL {
         
         String chaine, lien, nom1, nom2;
         int pos; //lienDir <-- = -1, -- = 0, --> = 1;
-        ArrayList<Attribut> att = new ArrayList<>();
+        ArrayList<Attribut> att = new ArrayList<Attribut>();
         Lien link;
         Noeud n1, n2;
         
@@ -165,7 +168,6 @@ public class Projet_GL {
         nom2 = chaine.substring(pos).trim();
         pers = addNoeud(pers, nom2);
         
-        ArrayList<Lien> tmp;           
         n1 = search(pers, nom1);
         n2 = search(pers, nom2);
         
@@ -179,7 +181,7 @@ public class Projet_GL {
                 lien = chaine.substring(0, chaine.indexOf("[")).trim();
             }
             //lire attribut
-            att = new ArrayList();
+            att = new ArrayList<Attribut>();
             att = Lien.buildAtt(chaine.substring(chaine.indexOf("[")+1), att);                        
             //création lien
             if (!(chaine.indexOf("-->") < 0)){
@@ -210,20 +212,22 @@ public class Projet_GL {
                 chaine = chaine.substring(1);
             }
         }
-        
 
         tab.remove(0);
         
-        return analyse(tab, pers);
-        
+        return analyse(tab, pers);        
     }
     
-    public static void afficherGraphe(ArrayList tab){
+    /** Méthode afficherGraphe : 
+     * - Prend en entree une liste de noeud
+     * - 
+     */
+    public static void afficherGraphe(ArrayList<Noeud> tab){
         
         Noeud n;        
         
         for (int i = 0 ; i < tab.size() ; i++){
-            n = ((Noeud)tab.get(i));
+            n = (tab.get(i));
             System.out.println("\n" + n.getNom());
             System.out.println("\t Liens Entrant");            
             for (int j = 0 ; j < n.getLienEntrant().size() ; j++){
@@ -248,8 +252,11 @@ public class Projet_GL {
     }
     
 
-    
-    public static ArrayList addNoeud(ArrayList tab, String nom){
+    /** Méthode addNoeud : 
+     * - 
+     * - 
+     */
+    public static ArrayList<Noeud> addNoeud(ArrayList<Noeud> tab, String nom){
         
         if (search(tab, nom) != null){
             return tab;
@@ -260,6 +267,10 @@ public class Projet_GL {
         
     }
     
+    /** Méthode decoupe : 
+     * - 
+     * - 
+     */
     public static ArrayList decoupe(String s, ArrayList tableau){
         
         if (s.indexOf("(") == -1){
@@ -270,7 +281,11 @@ public class Projet_GL {
         return decoupe(s.substring(s.indexOf(")")+1), tableau);
     }
 
-    public static Noeud search(ArrayList tab, String nom){
+    /** Méthode search : 
+     * - 
+     * - 
+     */
+    public static Noeud search(ArrayList<Noeud> tab, String nom){
         
         for (int i = 0 ; i < tab.size() ; i++){
             if (((Noeud) tab.get(i)).getNom().equals(nom)) {
@@ -281,7 +296,11 @@ public class Projet_GL {
         return null;
         
     }
-            
+      
+    /** Méthode buildAtt : 
+     * - Prend en entree un string et une liste d'attribut
+     * - 
+     */
     public static int nextInt(int min, int max) {
         int choix;
 
@@ -303,7 +322,5 @@ public class Projet_GL {
         sc.nextLine();
         return choix;
     }
-            
-
-            
 }
+       

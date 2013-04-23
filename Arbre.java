@@ -1,35 +1,44 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package projet_gl;
 
 import java.util.ArrayList;
 
+/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ * Refactorisation possible : 
+ *  - Une seule différence entre la fonction parcoursLargeurNoeud et parcoursLargeurRelation (3eme ligne du for)
+ *  - Expliquer dans les commentaires le but de chaque fonction
+ *  - Corriger les warnings pour les fonctions de parcours
+ *  - Changer les noms des fonctions parcoursLien et parcoursLiens, rendre le nom plus explicite
+ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+
 /**
- *
- * @author Standard
+ *  La classe Arbre represente l'ensemble du graphe qui est represente par un ensemble de 
+ *  noeud.
  */
 public class Arbre {
-    
     ArrayList<Noeud> arbre;
     
-    // Méthode du parcour en largeur à appeler
-    public ArrayList<Noeud> Largeur (Noeud noeud, ArrayList<Noeud> noeudVisite, int nivParcour){
+    /** Méthode largeur : 
+     * - Prend en entree un noeud, une liste de noeud et le niveau de parcours a visiter
+     * - Renvoie en sortie la liste des noeuds visitees
+     */
+    public ArrayList<Noeud> largeur (Noeud noeud, ArrayList<Noeud> noeudVisite, int nivParcours){
         noeudVisite.add(noeud);
         noeud.setVisite(true);
-        parcourLargeurNoeud (noeud, noeudVisite, nivParcour);
+        parcoursLargeurNoeud (noeud, noeudVisite, nivParcours);
         return noeudVisite;
     }
     
-    // Parcour en largeur de l'arbre, attention il faut appeler la méthode Largeur, jamais celle-ci directement, 
-    // sinon on pourra être amené à visiter deux fois le noeud de départ
-    public ArrayList<Noeud> parcourLargeurNoeud (Noeud noeud, ArrayList<Noeud> noeudVisite, int nivParcour){
+    /**
+     * Methode parcoursLargeurNoeud :
+     * - Possede les memes entrees et sorties que la fonction largeur
+     * - Sert uniquement a la fonction largeur pour effectuer de la recursivite pour eviter de visiter deux fois le noeud de depart
+     */
+    public ArrayList<Noeud> parcoursLargeurNoeud (Noeud noeud, ArrayList<Noeud> noeudVisite, int nivParcours){
         ArrayList<Lien> lien;
         lien = noeud.getLienSortant();
         int noeud_ajoute = 0;
         
-        // Parcour les liens sortant du noeud et les ajoute à la liste des noeuds visités si ce n'est pas déjà le cas 
+        //Parcours les liens sortant du noeud et les ajoute a la liste s'ils ne sont pas deja presents 
         for (int i=0 ; i<lien.size() ; i++){
             if (((Lien)lien.get(i)).getArrivee().getVisite() == false){
                 noeudVisite.add((Noeud)lien.get(i).getArrivee());
@@ -38,21 +47,26 @@ public class Arbre {
             }
         }
         
-        if (nivParcour != 1){
-            // Appel les noeuds visités 
+        //Tant qu'on n'a pas explorer en profondeur les noeuds souhaites, on continue de les parcourir 
+        if (nivParcours != 1){  
             for (int i=noeudVisite.size()-noeud_ajoute ; i<noeudVisite.size() ; i++){
-                noeudVisite = parcourLargeurNoeud((Noeud)noeudVisite.get(i), noeudVisite, --nivParcour);
+                noeudVisite = parcoursLargeurNoeud((Noeud)noeudVisite.get(i), noeudVisite, --nivParcours);
             }
         }
         return noeudVisite;
     }
     
-    public ArrayList<Noeud> parcourLargeurRelation (Noeud noeud, ArrayList<Noeud> noeudVisite, int nivParcour) {
+    /**
+     * Méthode parcoursLargeurRelation : 
+     * - Prend en entree un noeud, une liste de noeud et le niveau de parcours a visiter
+     * - Renvoie en sortie la liste des noeuds visitees
+     */
+    public ArrayList<Noeud> parcoursLargeurRelation (Noeud noeud, ArrayList<Noeud> noeudVisite, int nivParcour) {
         ArrayList<Lien> lien;
         lien = noeud.getLienSortant();
         int noeud_ajoute = 0;
         
-        // Parcour les liens sortant du noeud et les ajoute à la liste des noeuds visités si ce n'est pas déjà le cas 
+        //Parcours les liens sortant du noeud et les ajoute a la liste s'ils ne sont pas deja presents 
         for (int i=0 ; i<lien.size() ; i++){
             if (((Lien)lien.get(i)).getVisite() == false){
                 noeudVisite.add((Noeud)lien.get(i).getArrivee());
@@ -61,21 +75,32 @@ public class Arbre {
             }
         }
         
+        //Tant qu'on n'a pas explorer en profondeur les noeuds souhaites, on continue de les parcourir
         if (nivParcour != 1){
-            // Appel les noeuds visités 
             for (int i=noeudVisite.size()-noeud_ajoute ; i<noeudVisite.size() ; i++){
-                noeudVisite = parcourLargeurRelation((Noeud)noeudVisite.get(i), noeudVisite, --nivParcour);
+                noeudVisite = parcoursLargeurRelation((Noeud)noeudVisite.get(i), noeudVisite, --nivParcour);
             }
         }
         return noeudVisite;
     }
     
+    /**
+     * Méthode parcoursProfondeur : 
+     * - Prend en entree un noeud, une liste de noeud et le niveau de parcours a visiter
+     * - Renvoie en sortie la liste des noeuds visitees
+     */
     public static ArrayList<Noeud> parcoursProfondeur(ArrayList<Noeud> listeNoeuds,Noeud noeud, ArrayList<Noeud> noeudVisite, int nivParcour ){
     	resetNoeudVisite(listeNoeuds);
     	noeudVisite = parcoursProfondeurNoeud( noeud, noeudVisite, nivParcour);
     	return noeudVisite;
     }
     
+    /**
+     * Méthode parcoursProfondeurNoeud : 
+     * - Prend en entree un noeud, une liste de noeud et le niveau de parcours a visiter
+     * - Renvoie en sortie la liste des noeuds visitees
+     * - Sert uniquement a la fonction parcoursProfondeur pour effectuer de la recursivite pour eviter de visiter deux fois le noeud de depart
+     */
     public static ArrayList<Noeud> parcoursProfondeurNoeud (Noeud noeud, ArrayList<Noeud> noeudVisite, int nivParcour){
       noeud.setVisite(true);
       noeudVisite.add(noeud);
@@ -90,75 +115,107 @@ public class Arbre {
       return noeudVisite;
     }
     
+    /**
+     * Méthode resetNoeudVisite : 
+     * - Prend en entree une liste de noeud
+     * - Met tous les noeuds visites a false
+     */
     public static void resetNoeudVisite(ArrayList<Noeud> noeuds){
     	for(int i=0;i<noeuds.size();i++){
     		noeuds.get(i).setVisite(false);
     	}
     }
     
-    public ArrayList parcourLiens (Noeud noeud, ArrayList lien, ArrayList direction){
-        ArrayList<Noeud> listeNoeud = new ArrayList();
+    /**
+     * Méthode parcoursLiens : 
+     * - 
+     * - 
+     */
+    public ArrayList<Noeud> parcoursLiens (Noeud noeud, ArrayList lien, ArrayList direction){
+        ArrayList<Noeud> listeNoeud = new ArrayList<Noeud>();
         listeNoeud.add(noeud);
         
         for (int i=0 ; i<lien.size() ; i++){
-            listeNoeud = parcourLien(listeNoeud, (String)lien.get(i), (String)direction.get(i));
+            listeNoeud = parcoursLien(listeNoeud, (String)lien.get(i), (String)direction.get(i));
         }
         
         return listeNoeud;
     }
-            
-    public ArrayList parcourLien (ArrayList listeNoeud, String lien, String direction){
-        ArrayList<Noeud> resultat = new ArrayList();
+    
+    /**
+     * Méthode parcoursLien : 
+     * - 
+     * - 
+     */
+    public ArrayList<Noeud> parcoursLien (ArrayList<Noeud> listeNoeud, String lien, String direction){
+        ArrayList<Noeud> resultat = new ArrayList<Noeud>();
         
         if (direction.equals("<") || direction.equals("-")){
-            resultat.addAll(parcourAscendant(listeNoeud, lien));
+            resultat.addAll(parcoursAscendant(listeNoeud, lien));
         }
         
         if (direction.equals(">") ||  direction.equals("-")){
-            resultat.addAll(parcourDescendant(listeNoeud, lien));
+            resultat.addAll(parcoursDescendant(listeNoeud, lien));
         }
         
         return resultat;
     }
-            
-    public ArrayList parcourAscendant (ArrayList listeNoeud, String lien){
-        ArrayList<Noeud> resultat = new ArrayList();
+ 
+    /**
+     * Méthode parcoursAscendant : 
+     * - 
+     * - 
+     */
+    public ArrayList<Noeud> parcoursAscendant (ArrayList<Noeud> listeNoeud, String lien){
+        ArrayList<Noeud> resultat = new ArrayList<Noeud>();
         
         for (int i =0 ; i<listeNoeud.size() ; i++){
-            resultat.addAll(parcourAscendantNoeud((Noeud)listeNoeud.get(i) ,lien));
+            resultat.addAll(parcoursAscendantNoeud((Noeud)listeNoeud.get(i) ,lien));
         }
         
         return resultat;
     }
-          
-    public ArrayList parcourAscendantNoeud (Noeud noeud, String lien){
-        ArrayList<Noeud> resultat = new ArrayList();
+  
+    /**
+     * Méthode parcoursAscendantNoeud : 
+     * - 
+     * - 
+     */
+    public ArrayList<Noeud> parcoursAscendantNoeud (Noeud noeud, String lien){
+        ArrayList<Noeud> resultat = new ArrayList<Noeud>();
         
         for (int i=0 ; i<noeud.getLienEntrant().size() ; i++){
             if (noeud.getLienEntrant().get(i).getNom().equals(lien)){
                 resultat.add(noeud.getLienEntrant().get(i).getDepart());
             }
         }
-
-        
-        
+      
         return resultat;
     }
-           
-    public ArrayList parcourDescendant (ArrayList listeNoeud, String lien){
-        ArrayList<Noeud> resultat = new ArrayList();
+
+    /**
+     * Méthode parcoursDescendant : 
+     * - 
+     * - 
+     */
+    public ArrayList<Noeud> parcoursDescendant (ArrayList<Noeud> listeNoeud, String lien){
+        ArrayList<Noeud> resultat = new ArrayList<Noeud>();
         
         for (int i=0 ; i<listeNoeud.size() ; i++){
-            resultat.addAll(parcourDescendantNoeud((Noeud)listeNoeud.get(i), lien));
+            resultat.addAll(parcoursDescendantNoeud((Noeud)listeNoeud.get(i), lien));
         }
         
         return resultat;
     }
 
     
-         
-    public ArrayList parcourDescendantNoeud (Noeud noeud, String lien){
-        ArrayList<Noeud> resultat = new ArrayList();
+    /**
+     * Méthode parcoursDescendantNoeud : 
+     * - 
+     * - 
+     */     
+    public ArrayList<Noeud> parcoursDescendantNoeud (Noeud noeud, String lien){
+        ArrayList<Noeud> resultat = new ArrayList<Noeud>();
         
         for (int i=0 ; i<noeud.getLienSortant().size() ; i++){
             if (noeud.getLienSortant().get(i).getNom().equals(lien)){
