@@ -208,11 +208,15 @@ public class Projet_GL {
         return analyse(tab, pers);        
     }
     
+    /** Méthode lireNom: 
+     * - 
+     * -
+     */    
     public static ArrayList<String> lireNom(ArrayList pers, String chaine){
         
         String nom1, nom2;
         int pos;
-        ArrayList<String> noms = new ArrayList<>();
+        ArrayList<String> noms = new ArrayList<String>();
         
         //lire nom 1                
         pos = chaine.indexOf("<--") < 0 ? chaine.indexOf("--") : chaine.indexOf("<--");       
