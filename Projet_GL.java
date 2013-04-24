@@ -8,7 +8,7 @@ import javax.swing.JFileChooser;
 
 /**
  * Cette methode est la fonction principal du programme et comporte donc le main.
- * Elle comporte aussi les fonction relative a l'affichage.
+ * Elle comporte aussi les fonctions relative à l'affichage.
  */
 public class Projet_GL {
 
@@ -55,15 +55,11 @@ public class Projet_GL {
      */
     public static File ouvertureFichier() throws IOException{
                 
-        JFileChooser dialogue = new JFileChooser(new File("."));
-	//PrintWriter sortie;
+        JFileChooser dialogue = new JFileChooser(new File("."));	
 	File fichier = null;
 
 	if (dialogue.showOpenDialog(null)== JFileChooser.APPROVE_OPTION) {
-	    fichier = dialogue.getSelectedFile();
-	    //sortie = new PrintWriter(new FileWriter(fichier.getPath(), true));
-	    //sortie.println(arg[0]);
-	    //sortie.close();
+	    fichier = dialogue.getSelectedFile();	    
 	}
         
         return fichier;
@@ -71,7 +67,7 @@ public class Projet_GL {
     }
     
     /** Méthode menuTraitement : 
-     * - Prend en entree un fichier de type File
+     * - Prend en entrée un fichier de type File
      * - 
      */
     public static void menuTraitement(File fichier){
@@ -116,8 +112,7 @@ public class Projet_GL {
                     analyse(donnees, personnes);
 
                     afficherGraphe(personnes);
-                    
-                    System.out.println("ok4");
+                                        
                     try {
                         br.close();
                     } catch (IOException ex) {
@@ -142,35 +137,30 @@ public class Projet_GL {
     }
     
     /** Méthode analyse : 
-     * - 
-     * - 
+     * - Cette fonction crée 0, 1 ou 2 noeuds selon l'existence ou non de ces derniers, puis crée la liste de liens et celle des attributs
+     * - Elle repète ces actions pour toutes les entrées du tableau
+     * - @tab : tableau contenant toutes les entrées à traiter
+     * - @pers: tableau regroupant les personnes
      */
-    public static ArrayList<Noeud> analyse(ArrayList<Noeud> tab, ArrayList<Noeud> pers){
+    public static ArrayList<Noeud> analyse(ArrayList tab, ArrayList pers){
         
         if (tab.isEmpty()){
             return pers;
         }
         
-        String chaine, lien, nom1, nom2;
+        String chaine, lien;
         int pos; //lienDir <-- = -1, -- = 0, --> = 1;
         ArrayList<Attribut> att = new ArrayList<Attribut>();
+        ArrayList<String> noms;
         Lien link;
         Noeud n1, n2;
         
-        //lire nom 1
-        chaine = tab.get(0).toString();        
-        pos = chaine.indexOf("<--") < 0 ? chaine.indexOf("--") : chaine.indexOf("<--");       
-        nom1 = chaine.substring(0, pos).trim();
-        pers = addNoeud(pers, nom1);
-
-        // lire nom 2
-        pos = chaine.indexOf("-->") < 0 ? chaine.indexOf("--", chaine.indexOf("--")+2)+2 : chaine.indexOf("-->")+3;
-        nom2 = chaine.substring(pos).trim();
-        pers = addNoeud(pers, nom2);
+        chaine = tab.get(0).toString();
+                
+        noms = lireNom(pers, chaine);   
         
-        n1 = search(pers, nom1);
-        n2 = search(pers, nom2);
-        
+        n1 = search(pers, noms.get(0).toString());
+        n2 = search(pers, noms.get(1).toString());        
         
         while(chaine.indexOf("[") != -1){
             //lire lien        
@@ -216,6 +206,29 @@ public class Projet_GL {
         tab.remove(0);
         
         return analyse(tab, pers);        
+    }
+    
+    public static ArrayList<String> lireNom(ArrayList pers, String chaine){
+        
+        String nom1, nom2;
+        int pos;
+        ArrayList<String> noms = new ArrayList<>();
+        
+        //lire nom 1                
+        pos = chaine.indexOf("<--") < 0 ? chaine.indexOf("--") : chaine.indexOf("<--");       
+        nom1 = chaine.substring(0, pos).trim();
+        pers = addNoeud(pers, nom1);
+
+        // lire nom 2
+        pos = chaine.indexOf("-->") < 0 ? chaine.indexOf("--", chaine.indexOf("--")+2)+2 : chaine.indexOf("-->")+3;
+        nom2 = chaine.substring(pos).trim();
+        pers = addNoeud(pers, nom2);
+
+        noms.add(nom1);
+        noms.add(nom2);
+        
+        return noms;
+        
     }
     
     /** Méthode afficherGraphe : 
@@ -268,7 +281,7 @@ public class Projet_GL {
     }
     
     /** Méthode decoupe : 
-     * - 
+     * - découpe le fichier à analyser en fonction des ( ) et les rentre dans un tableau
      * - 
      */
     public static ArrayList decoupe(String s, ArrayList tableau){
