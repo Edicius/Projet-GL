@@ -227,7 +227,7 @@ public class Projet_GL {
         pos = chaine.indexOf("-->") < 0 ? chaine.indexOf("--", chaine.indexOf("--")+2)+2 : chaine.indexOf("-->")+3;
         nom2 = chaine.substring(pos).trim();
         pers = addNoeud(pers, nom2);
-
+        
         noms.add(nom1);
         noms.add(nom2);
         
