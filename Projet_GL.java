@@ -138,6 +138,12 @@ public class Projet_GL {
         
     }
     
+    /** MÃ©thode sousmenuTraitement :
+     * - une fois le graphe affiché 
+     * - pour effectuer l'affichage de l'arbre avec un mode de parcours
+     * - choisi par l'utilisateur
+     *  * - @personnes: tableau regroupant les personnes
+     */
     public static void sousMenu(ArrayList<Noeud> personnes){
     	int ch,niv = 0;
     	boolean ok = false;
