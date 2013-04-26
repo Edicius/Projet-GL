@@ -112,6 +112,8 @@ public class Projet_GL {
                     analyse(donnees, personnes);
 
                     afficherGraphe(personnes);
+                    
+                    sousMenu(personnes);
                                         
                     try {
                         br.close();
@@ -134,6 +136,61 @@ public class Projet_GL {
             }
         }
         
+    }
+    
+    public static void sousMenu(ArrayList<Noeud> personnes){
+    	int ch,niv = 0;
+    	boolean ok = false;
+    	ArrayList<Noeud> resultat = new ArrayList<Noeud>();
+    	ArrayList<Noeud> parcours = new ArrayList<Noeud>();
+        
+        while(true){
+            System.out.println("1. Faire une recherche avec parcours en largeur");
+            System.out.println("2. Faire une recherche avec parcours en profondeur");
+            System.out.println("3. Retour");
+            System.out.println("");
+            System.out.print("Veuillez choisir une action Ã  effectuer : ");
+            
+            ch = nextInt(1, 3);
+            
+            switch(ch){
+            	case 1:
+            		while (!ok){
+	        			try{
+	        				System.out.println("Entrez le niveau de granularité");
+	        				sc = new Scanner(System.in);
+	        				niv = sc.nextInt();
+	        				ok = true;
+	        			}
+	        			catch(InputMismatchException e){
+	        				System.out.println("Saisie de la granularité incorrecte.");
+	        			}
+	        		}
+            		resultat = Arbre.largeur(personnes.get(0), parcours, niv );
+		            for(int i=0;i<resultat.size();i++){
+		            	System.out.println(resultat.get(i).getNom());
+		            }
+	            case 2: 
+	            	while (!ok){
+	        			try{
+	        				System.out.println("Entrez le niveau de granularité");
+	        				sc = new Scanner(System.in);
+	        				niv = sc.nextInt();
+	        				ok = true;
+	        			}
+	        			catch(InputMismatchException e){
+	        				System.out.println("Saisie de la granularité incorrecte.");
+	        			}
+	        		}
+	            	resultat = Arbre.parcoursProfondeur(personnes,personnes.get(0), parcours, niv );
+		            for(int i=0;i<resultat.size();i++){
+		            	System.out.println(resultat.get(i).getNom());
+		            }
+		            break;
+	            case 3:
+	            	return;
+            }
+        }
     }
     
     /** MÃ©thode analyse : 

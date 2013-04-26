@@ -21,7 +21,7 @@ public class Arbre {
      * - Prend en entree un noeud, une liste de noeud et le niveau de parcours a visiter
      * - Renvoie en sortie la liste des noeuds visitees
      */
-    public ArrayList<Noeud> largeur (Noeud noeud, ArrayList<Noeud> noeudVisite, int nivParcours){
+    public static ArrayList<Noeud> largeur (Noeud noeud, ArrayList<Noeud> noeudVisite, int nivParcours){
         noeudVisite.add(noeud);
         noeud.setVisite(true);
         parcoursLargeurNoeud (noeud, noeudVisite, nivParcours);
@@ -33,7 +33,7 @@ public class Arbre {
      * - Possede les memes entrees et sorties que la fonction largeur
      * - Sert uniquement a la fonction largeur pour effectuer de la recursivite pour eviter de visiter deux fois le noeud de depart
      */
-    public ArrayList<Noeud> parcoursLargeurNoeud (Noeud noeud, ArrayList<Noeud> noeudVisite, int nivParcours){
+    public static ArrayList<Noeud> parcoursLargeurNoeud (Noeud noeud, ArrayList<Noeud> noeudVisite, int nivParcours){
         ArrayList<Lien> lien;
         lien = noeud.getLienSortant();
         int noeud_ajoute = 0;
