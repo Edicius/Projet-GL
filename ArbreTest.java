@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+package projet_gl;
 
 import java.util.ArrayList;
 import org.junit.After;
@@ -10,12 +7,34 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import projet_gl.*;
+
+/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ * Fonctions restantes a tester : 
+ * parcoursProfondeur
+ * parcoursProfondeurNoeud
+ * resetNoeudVisite
+ * parcoursLiens
+ * parcoursLien
+ * parcoursAscendant
+ * parcoursAscendantNoeud
+ * parcoursDescendant
+ * parcoursDescendantNoeud
+ *  
+ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 
 /**
- *
- * @author yann
+ *	Voici l'ensemble des fonction testees avec l'outil JUnit : 
+ *	- largeur (2 fois?), en laissant qu'un seul
+ *	- parcoursLargeurNoeud
+ *	- parcourLargeurRelation
+ *  - 
+ *  -
+ *  -
+ *  -
+ *  -
+ *  
  */
+
 public class ArbreTest {
     
     public ArbreTest() {
@@ -38,7 +57,7 @@ public class ArbreTest {
     }
 
     /**
-     * Test of Largeur method, of class Arbre.
+     * Test1 of Largeur method, of class Arbre.
      */
     @Test
     public void testLargeur1() {
@@ -48,30 +67,30 @@ public class ArbreTest {
         Noeud n4 = new Noeud("lea");
         Noeud n5 = new Noeud("jue");
         
-        ArrayList attribut = new ArrayList();
+        ArrayList<Attribut> attribut = new ArrayList<Attribut>();
         Lien l1 = new Lien("a", n1, n2, attribut);
         Lien l2 = new Lien("b", n1, n3, attribut);
         Lien l3 = new Lien("c", n1, n4, attribut);
         Lien l4 = new Lien("d", n3, n4, attribut);
         Lien l5 = new Lien("e", n4, n5, attribut);
         
-        ArrayList Visite = new ArrayList();
-        ArrayList noeudVisite = new ArrayList();
+        ArrayList<Noeud> Visite = new ArrayList<Noeud>();
+        ArrayList<Noeud> noeudVisite = new ArrayList<Noeud>();
         noeudVisite.add(n1);
         noeudVisite.add(n2);
         noeudVisite.add(n3);
         noeudVisite.add(n4);
         noeudVisite.add(n5);
         
-        ArrayList t1 = new ArrayList();
+        ArrayList<Lien> t1 = new ArrayList<Lien>();
         t1.add(l1);
         t1.add(l2);
         t1.add(l3);
         
-        ArrayList t2 = new ArrayList();
+        ArrayList<Lien> t2 = new ArrayList<Lien>();
         t2.add(l4);
         
-        ArrayList t3 = new ArrayList();
+        ArrayList<Lien> t3 = new ArrayList<Lien>();
         t3.add(l5);
         
         n1.setLienSortant(t1);
@@ -79,13 +98,16 @@ public class ArbreTest {
         n4.setLienSortant(t3);
         
         Arbre instance = new Arbre();
-        ArrayList expResult = noeudVisite;
-        ArrayList result = instance.Largeur(n1, Visite, -1);
+        ArrayList<Noeud> expResult = noeudVisite;
+        ArrayList<Noeud> result = instance.largeur(n1, Visite, -1);
         
         assertEquals(expResult, result);
         
     }
     
+    /**
+     * Test2 of Largeur method, of class Arbre.
+     */
     @Test
     public void testLargeur2() {
         Noeud n1 = new Noeud("bob");
@@ -94,27 +116,26 @@ public class ArbreTest {
         Noeud n4 = new Noeud("lea");
         Noeud n5 = new Noeud("jue");
         
-        ArrayList attribut = new ArrayList();
+        ArrayList<Attribut> attribut = new ArrayList<Attribut>();
         Lien l1 = new Lien("a", n1, n2, attribut);
         Lien l2 = new Lien("b", n1, n3, attribut);
         Lien l3 = new Lien("c", n1, n4, attribut);
         Lien l4 = new Lien("d", n3, n4, attribut);
         Lien l5 = new Lien("e", n3, n5, attribut);
         
-        ArrayList Visite = new ArrayList();
-        ArrayList noeudVisite = new ArrayList();
+        ArrayList<Noeud> Visite = new ArrayList<Noeud>();
+        ArrayList<Noeud> noeudVisite = new ArrayList<Noeud>();
         noeudVisite.add(n1);
         noeudVisite.add(n2);
         noeudVisite.add(n3);
         noeudVisite.add(n4);
-        //noeudVisite.add(n5);
         
-        ArrayList t1 = new ArrayList();
+        ArrayList<Lien> t1 = new ArrayList<Lien>();
         t1.add(l1);
         t1.add(l2);
         t1.add(l3);
         
-        ArrayList t2 = new ArrayList();
+        ArrayList<Lien> t2 = new ArrayList<Lien>();
         t2.add(l5);
         t2.add(l4);
         
@@ -122,8 +143,8 @@ public class ArbreTest {
         n3.setLienSortant(t2);
         
         Arbre instance = new Arbre();
-        ArrayList expResult = noeudVisite;
-        ArrayList result = instance.Largeur(n1, Visite, 1);
+        ArrayList<Noeud> expResult = noeudVisite;
+        ArrayList<Noeud> result = instance.largeur(n1, Visite, 1);
         
         assertEquals(expResult, result);
         
@@ -141,30 +162,30 @@ public class ArbreTest {
         Noeud n4 = new Noeud("lea");
         Noeud n5 = new Noeud("jue");
         
-        ArrayList attribut = new ArrayList();
+        ArrayList<Attribut> attribut = new ArrayList<Attribut>();
         Lien l1 = new Lien("a", n1, n2, attribut);
         Lien l2 = new Lien("b", n1, n3, attribut);
         Lien l3 = new Lien("c", n1, n4, attribut);
         Lien l4 = new Lien("d", n3, n4, attribut);
         Lien l5 = new Lien("e", n3, n5, attribut);
         
-        ArrayList Visite = new ArrayList();
+        ArrayList<Noeud> Visite = new ArrayList<Noeud>();
         Visite.add(n1);
         n1.setVisite(true);
         
-        ArrayList noeudVisite = new ArrayList();
+        ArrayList<Noeud> noeudVisite = new ArrayList<Noeud>();
         noeudVisite.add(n1);
         noeudVisite.add(n2);
         noeudVisite.add(n3);
         noeudVisite.add(n4);
         noeudVisite.add(n5);
         
-        ArrayList t1 = new ArrayList();
+        ArrayList<Lien> t1 = new ArrayList<Lien>();
         t1.add(l1);
         t1.add(l2);
         t1.add(l3);
         
-        ArrayList t2 = new ArrayList();
+        ArrayList<Lien> t2 = new ArrayList<Lien>();
         t2.add(l5);
         t2.add(l4);
         
@@ -172,12 +193,15 @@ public class ArbreTest {
         n3.setLienSortant(t2);
         
         Arbre instance = new Arbre();
-        ArrayList expResult = noeudVisite;
-        ArrayList result = instance.parcourLargeurNoeud(n1, Visite, -1);
+        ArrayList<Noeud> expResult = noeudVisite;
+        ArrayList<Noeud> result = instance.parcoursLargeurNoeud(n1, Visite, -1);
         
         assertEquals(expResult, result);
     }
     
+    /**
+     * Test of parcourLargeurRelation method, of class Arbre.
+     */
     @Test
     public void testParcourLargeurRelation() {
         
@@ -187,18 +211,18 @@ public class ArbreTest {
         Noeud n4 = new Noeud("lea");
         Noeud n5 = new Noeud("jue");
         
-        ArrayList attribut = new ArrayList();
+        ArrayList<Attribut> attribut = new ArrayList<Attribut>();
         Lien l1 = new Lien("a", n1, n2, attribut);
         Lien l2 = new Lien("b", n1, n3, attribut);
         Lien l3 = new Lien("c", n1, n4, attribut);
         Lien l4 = new Lien("d", n3, n4, attribut);
         Lien l5 = new Lien("e", n3, n5, attribut);
         
-        ArrayList Visite = new ArrayList();
+        ArrayList<Noeud> Visite = new ArrayList<Noeud>();
         Visite.add(n1);
         n1.setVisite(true);
         
-        ArrayList noeudVisite = new ArrayList();
+        ArrayList<Noeud> noeudVisite = new ArrayList<Noeud>();
         noeudVisite.add(n1);
         noeudVisite.add(n2);
         noeudVisite.add(n3);
@@ -206,12 +230,12 @@ public class ArbreTest {
         noeudVisite.add(n5);
         noeudVisite.add(n4);
         
-        ArrayList t1 = new ArrayList();
+        ArrayList<Lien> t1 = new ArrayList<Lien>();
         t1.add(l1);
         t1.add(l2);
         t1.add(l3);
         
-        ArrayList t2 = new ArrayList();
+        ArrayList<Lien> t2 = new ArrayList<Lien>();
         t2.add(l5);
         t2.add(l4);
         
@@ -219,8 +243,8 @@ public class ArbreTest {
         n3.setLienSortant(t2);
         
         Arbre instance = new Arbre();
-        ArrayList expResult = noeudVisite;
-        ArrayList result = instance.parcourLargeurRelation(n1, Visite, -1);
+        ArrayList<Noeud> expResult = noeudVisite;
+        ArrayList<Noeud> result = instance.parcoursLargeurRelation(n1, Visite, -1);
             
         assertEquals(expResult, result);
     }

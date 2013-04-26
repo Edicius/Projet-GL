@@ -1,14 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package projet_gl;
 
 import java.util.ArrayList;
 
 /**
- *
- * @author Edicius
+ * Un lien represente la connexion entre deux noeuds. 
+ * Celui-ci est caracterise par un nom, un noeud de depart et d'arrivee, une liste d'attribut et un booleen qui indique s'il a deja ete visite.
  */
 public class Lien {
     
@@ -17,8 +13,6 @@ public class Lien {
     private Noeud arrivee;
     private ArrayList<Attribut> attribut;
     private Boolean visite;
-
-
 
     
     public Lien(String nom, Noeud depart, Noeud arrivee, ArrayList<Attribut> attribut) {
@@ -53,7 +47,11 @@ public class Lien {
         return arrivee;
     }
     
-    public static ArrayList buildAtt(String chaine, ArrayList tab){
+    /** Méthode buildAtt : 
+     * - Prend en entree un string et une liste d'attribut
+     * - 
+     */
+    public static ArrayList<Attribut> buildAtt(String chaine, ArrayList<Attribut> tab){
 
         if((chaine.indexOf(",") == -1 || chaine.indexOf(",") > chaine.indexOf("]")) && (chaine.indexOf("|") == -1 || chaine.indexOf("|") > chaine.indexOf("]"))){
         //pas de virgule avant fermeture crochet

@@ -1,14 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package projet_gl;
 
-import java.util.ArrayList;
-
 /**
+ *  La classe attribut represente la donnee du lien qui relie deux noeuds.
+ *  Cette donnee est caracterise par un nom et une valeur qui lui est associe.
+ *  Exemple : since (nom) = 2011 (valeur)
  *
- * @author Edicius
  */
 public class Attribut {
     
@@ -29,3 +25,4 @@ public class Attribut {
     }
     
 }
+
